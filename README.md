@@ -1,6 +1,6 @@
 # mysql2excel
 A simple script to convert mysql dump (tsv) into an excel file (.xlsx). 
-*With column names*.
+**With column names**.
 
 ## Motivation
 Sometimes it is good to show to someone how a MySQL database look like. One can do it locally via a mysql client,
