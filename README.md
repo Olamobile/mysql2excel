@@ -19,11 +19,14 @@ Suppose you want to export first 25 rows of each table database `db1` into Excel
 mysqldump -u mysqluser -p --where="1 limit 25" db1 --tab=./tsv
 ```
 It will create a folder `./tsv` with files (two files per table: `.sql`, and `.txt`).
+
 2. Run the script
 ```
 ./mysql2xlsx.py ./tsv --out db1.xlsx
 ```
+
 3. 
+
 4. Profit!
 
 ## Dependencies
