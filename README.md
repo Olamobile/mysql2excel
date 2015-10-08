@@ -37,4 +37,21 @@ sudo apt-get install python3
 sudo pip3 install XlsxWriter
 ```
 
+## Errors
 
+### (Errcode: 13) when executing 'SELECT INTO OUTFILE'
+
+Could happen when mysql cannot write to the directory. Let's assume that you're dumping into `/path/to/your/tsv` folder. 
+
+Then, you can try: 
+
+```
+chmod a+rwx /path/to/your/tsv
+```
+
+if it still does not help, in case of Ubuntu, it can be due to apparmor (on other systems it could be selinux) with their default policies. A solution could be: 
+
+```
+echo "/path/to/your/tsv/ r, " >> /etc/apparmor.d/usr.sbin.mysqld
+echo "/path/to/your/tsv/* rw, " >> /etc/apparmor.d/usr.sbin.mysqld
+```
