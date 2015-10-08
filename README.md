@@ -55,3 +55,5 @@ if it still does not help, in case of Ubuntu, it can be due to apparmor (on othe
 echo "/path/to/your/tsv/ r, " >> /etc/apparmor.d/usr.sbin.mysqld
 echo "/path/to/your/tsv/* rw, " >> /etc/apparmor.d/usr.sbin.mysqld
 ```
+
+and restart/reload the apparmor service.
