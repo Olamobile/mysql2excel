@@ -85,7 +85,8 @@ for fn in os.listdir(INPUT):
         basename = fn[:-len('.sql')]
         
         # create a new sheet
-        sheet = book.add_worksheet(basename)
+        # need to cut the name, 31 symbol max
+        sheet = book.add_worksheet(basename[:31])
 
         sheet.write_row('A1', columns, bold)
         
