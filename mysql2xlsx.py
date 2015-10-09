@@ -54,6 +54,7 @@ OUTPUT = args.out
 
 
 rex_field = re.compile("\s*`(.*?)`.*")
+rex_encoding = re.compile(".*\s+CHARSET\s*=\s*([^\s^;]*).*")
 
 book = xlsxwriter.Workbook(OUTPUT)
 bold = book.add_format({'bold': True}) 
@@ -69,6 +70,7 @@ for fn in os.listdir(INPUT):
         # reading all lines starting with two spaces and `    
         # as we assume only those contain column names
         columns = []
+        encoding = 'utf-8'
         for line in f: 
             if line.startswith("  `"):
                 fieldnames = rex_field.search(line).groups()
@@ -77,7 +79,12 @@ for fn in os.listdir(INPUT):
                 else:
                    log.warning("Fieldname was considered empty?! ", str(fieldnames))
             else:
-                break
+                encpiece = rex_encoding.search(line)
+                if encpiece: 
+                    encpiece = encpiece.groups()
+                    if encpiece:
+                        encoding = encpiece[0]
+
         # now we got all columns
         f.close()
         log.debug("Columns: %s", json.dumps(columns))
@@ -92,7 +99,7 @@ for fn in os.listdir(INPUT):
         
         #reading the corresponding .txt file:
         txtfn = basename + ".txt"
-        f = open(os.path.join(INPUT, txtfn))
+        f = open(os.path.join(INPUT, txtfn), encoding = encoding)
         log.info("Reading %s file ", f)
 
         irow = 2
